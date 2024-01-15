@@ -1,33 +1,61 @@
-import { Pencil } from 'lucide-react';
-import Link from 'next/link';
-import { DeleteButton } from './ui/DeleteButton';
 
-export const TodoComp = () => {
-	return (
-		<div className='flex border p-2 rounded-lg mb-2'>
-			<div className='ml-4'>
-				<header className='flex items-center mb-2'>
-					<h5 className='font-medium'>Todo item 1</h5>
-					<p className='mx-1 font-light'>|</p>
-					<p className='text-sm'>2023-11-13</p>
-				</header>
-				<p className='text-sm text-zinc-500 mb-2'>
-					Sample todo item
-				</p>
-				<div className='flex gap-4 items-center'>
-					<Link
-						href='123'
-						className='flex items-center border py-1 px-2 rounded-lg hover:bg-zinc-300'
-					>
-						<Pencil className='h-4 w-4' />
-						<p className='ml-2 text-sm'>Edit</p>
-					</Link>
-					<form action=''>
-						<input type='hidden' name='id' value='' />
-						<DeleteButton />
-					</form>
-				</div>
-			</div>
-		</div>
-	);
+import { deleteTodo } from '@/actions/deleteTodo';
+import { TodoRecord } from '@/xata';
+import { DeleteButton } from './ui/DeleteButton';
+import { Pencil } from 'lucide-react';
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from "@/components/ui/tooltip"
+import { Button } from "@/components/ui/Button"
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "@/components/ui/popover"
+import { EditTodoForm } from './EditTodoForm';
+
+
+
+export const TodoComp = ({ todo }: { todo: TodoRecord }) => {
+    
+    return (
+        <TooltipProvider>
+            <div className='flex border p-2 rounded-lg mb-2'>
+                <div className='ml-4'>
+                    <header className='flex items-center mb-2'>
+                        <h5 className='text-sm text-zinc-500'>
+                            <Tooltip>
+                                <TooltipTrigger>Todo item </TooltipTrigger>
+                                <TooltipContent>
+                                    {todo.id}
+                                </TooltipContent>
+                            </Tooltip>
+                        </h5>
+                        <p className='mx-1 font-light text-zinc-500'>|</p>
+
+                        <p className='text-sm text-zinc-500'>
+                            {todo.xata.createdAt.toDateString()}</p>
+                    </header>
+                    <p className=' mb-2'>{todo.description}</p>
+                    <div className='flex gap-4 items-center'>
+                        <Popover>
+                            <PopoverTrigger asChild>
+                                <Button variant="outline"><Pencil className='h-4 w-4 mr-2' />Edit</Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-80">
+                              <EditTodoForm todo={todo}/>
+                            </PopoverContent>
+                        </Popover>
+                        <form action={deleteTodo}>
+                            <input type='hidden' name='id' value={todo.id} />
+                            <DeleteButton />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </TooltipProvider>
+    );
 };

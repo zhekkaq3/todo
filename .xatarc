@@ -1,0 +1,6 @@
+{
+  "databaseURL": "https://Zhenya-s-workspace-qi6iud.us-east-1.xata.sh/db/todo",
+  "codegen": {
+    "output": "src/xata.ts"
+  }
+}

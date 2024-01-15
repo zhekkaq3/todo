@@ -1,0 +1,16 @@
+{
+  "id": "mig_cmeje0nl8rbdc231le00",
+  "parentID": "mig_cmejdanl8rbdc231ldv0",
+  "checksum": "1:b28d9e8e56528b6df9e24e57eb8b6f7030905988df297d5b830b60979933b08c",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "description",
+          "type": "string"
+        },
+        "table": "todo"
+      }
+    }
+  ]
+}

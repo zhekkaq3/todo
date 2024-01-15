@@ -1,0 +1,11 @@
+{
+  "id": "mig_cmejdanl8rbdc231ldv0",
+  "checksum": "1:c105b004a99c1a88cdafa391f5ea6c23d090e4326fa1fafb7e7f79719be4e9dc",
+  "operations": [
+    {
+      "addTable": {
+        "table": "todo"
+      }
+    }
+  ]
+}
